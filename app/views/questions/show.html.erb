@@ -1,0 +1,19 @@
+<h1>Question</h1>
+
+<p>Title<br>
+<%=@question.title%></p>
+
+<p>Description<br>
+<%=@question.description%></p>
+
+<h4>Add an Answer</h4>
+<%= form_for [@question, @answer] do |f| %>
+  <%= f.label :answer %>
+  <%= f.text_field :body %><br>
+  <%= f.submit %>
+<% end %>
+
+<h4>Answers</h4>
+<% @answers.each do |answer|%>
+<p><%= answer.body %></p>
+<%end%>
