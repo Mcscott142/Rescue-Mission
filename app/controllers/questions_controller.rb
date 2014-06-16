@@ -13,7 +13,7 @@ class QuestionsController < ApplicationController
     if @question.save
       redirect_to '/questions'
     else
-       flash.now[:notice] = "Could not post question with that format! Try again"
+       flash[:notice] = "Could not post question with that format! Try again"
         render :new
     end
   end
@@ -24,11 +24,38 @@ class QuestionsController < ApplicationController
     @answers = @question.answers.order('created_at DESC')
   end
 
-  def update
-    update_question = Question.find(params[:id])
-    update_question.update(question_params)
+  def edit
+   @question = Question.find(params[:id])
+  end
 
-    redirect_to to @questions
+
+  def update
+    @question = Question.find(params[:id])
+
+    if @question.update(question_params)
+      flash[:notice] = "Question Updated"
+
+      redirect_to @question
+    else
+      flash[:notice] = "Unable to submit update in this format."
+
+
+      render :new
+    end
+  end
+
+  def destroy
+    @question = Question.find(params[:id])
+
+    if @question.destroy
+      flash[:notice] = "Your question has been deleted."
+
+      redirect_to '/questions/'
+    else
+      flash[:notice] = "Unable to delete question."
+
+      render :new
+    end
   end
 
 
