@@ -32,7 +32,7 @@ class QuestionsController < ApplicationController
   def update
     @question = Question.find(params[:id])
 
-    if @question.update(question_params)
+    if @question.update(question_params) && @question.user_id = session[:user_id]
       flash[:notice] = "Question Updated"
 
       redirect_to @question
@@ -47,7 +47,7 @@ class QuestionsController < ApplicationController
   def destroy
     @question = Question.find(params[:id])
 
-    if @question.destroy
+    if @question.destroy && @question.user_id = session[:user_id]
       flash[:notice] = "Your question has been deleted."
 
       redirect_to '/questions/'

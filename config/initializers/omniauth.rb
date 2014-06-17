@@ -1,2 +1,5 @@
-#Rails.application.config.middleware.use OmniAuth::Builder do
-  #provider #put github info here from OmniAuth Github gem readme
+OmniAuth.config.logger = Rails.logger
+
+Rails.application.config.middleware.use OmniAuth::Builder do
+  provider :twitter, ENV['TWITTER_KEY'], ENV['TWITTER_SECRET']
+end
